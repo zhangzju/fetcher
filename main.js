@@ -28,3 +28,23 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
+// In main process.
+const {ipcMain} = require('electron')
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg)  // prints "ping"
+  event.sender.send('asynchronous-reply', 'pong')
+})
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  console.log(arg)  // prints "ping"
+  event.returnValue = 'pong'
+})
+
+ipcMain.on('fetch', (event, arg)=>{
+  console.log(arg)
+  // win.loadURL(`file://${__dirname}/result.html`)
+  // window.open(`file://${__dirname}/result.html`)
+  event.sender.send('reply', 'pong')
+})

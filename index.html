@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Fetcher</title>
     <link rel="stylesheet" href="css/photon.min.css">
-    <script src="main.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -19,7 +18,7 @@
             <nav class="nav-group">
                 <h5 class="nav-group-title">Method</h5>
                 <a class="nav-group-item active">
-                    <span class="icon icon-home"></span> AJAX
+                    <span class="icon icon-home"></span> GET
                 </a>
                 <span class="nav-group-item">
     <span class="icon icon-download"></span> Fetch
@@ -28,10 +27,10 @@
     <span class="icon icon-folder"></span> POST
                 </span>
                 <span class="nav-group-item">
-    <span class="icon icon-signal"></span> Header
+    <span class="icon icon-signal"></span> JSONP
                 </span>
                 <span class="nav-group-item">
-    <span class="icon icon-print"></span> Applications
+    <span class="icon icon-print"></span> DEL
                 </span>
                 <span class="nav-group-item">
     <span class="icon icon-cloud"></span> Find more
@@ -58,11 +57,23 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-form btn-default">Reset</button>
-                    <button type="submit" class="btn btn-form btn-primary">Fetch</button>
+                    <button type="submit" class="btn btn-form btn-primary" id="fetch">Fetch</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
+<script type="text/javascript">
+// In renderer process (web page).
+const {ipcRenderer} = require('electron')
+console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
 
+document.getElementById('fetch').addEventListener("click", function(){
+  ipcRenderer.sendSync('fetch', 'test');
+})
+
+ipcRenderer.on('reply', (event, arg) => {
+  
+})
+</script>
 </html>
