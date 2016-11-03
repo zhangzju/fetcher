@@ -44,7 +44,5 @@ ipcMain.on('synchronous-message', (event, arg) => {
 
 ipcMain.on('fetch', (event, arg)=>{
   console.log(arg)
-  // win.loadURL(`file://${__dirname}/result.html`)
-  // window.open(`file://${__dirname}/result.html`)
   event.sender.send('reply', 'pong')
 })
