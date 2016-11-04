@@ -59,15 +59,18 @@
 </body>
 <script type="text/javascript">
 // In renderer process (web page).
-const {ipcRenderer} = require('electron')
+const {
+    ipcRenderer
+} = require('electron')
 console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
 
-document.getElementById('fetch').addEventListener("click", function(){
-  ipcRenderer.sendSync('fetch', 'test');
+document.getElementById('fetch').addEventListener("click", function() {
+    ipcRenderer.sendSync('fetch', 'test');
 })
 
 ipcRenderer.on('reply', (event, arg) => {
 
 })
 </script>
+
 </html>
