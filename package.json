@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "jquery": "^3.1.0",
+    "jquery-validation": "^1.15.1",
     "superagent": "^2.2.0",
     "vue": "^2.0.3"
   }

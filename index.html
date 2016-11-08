@@ -30,14 +30,14 @@
     <span class="icon icon-signal"></span> JSONP
                 </span>
             </nav>
-            <form style="margin-left:10%;margin-top:10%">
+            <form style="margin-left:10%;margin-top:10%" id="ajaxForm">
                 <div class="form-group">
                     <label>API address</label>
-                    <input class="form-control" placeholder="Email">
+                    <input class="form-control" placeholder="URL" id="urlToGet">
                 </div>
                 <div class="form-group">
                     <label>token</label>
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" placeholder="Token">
                 </div>
                 <select class="form-control">
                     <option>show in table</option>
@@ -46,31 +46,39 @@
                 </select>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox"> Save as file
+                        <input type="checkbox" id="saceAsFile"> Save as file
                     </label>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-form btn-default">Reset</button>
-                    <button type="submit" class="btn btn-form btn-primary" id="fetch">Fetch</button>
+                    <button type="submit" class="btn btn-form btn-default" id="reset" >Reset</button>
+                    <button type="submit" class="btn btn-form btn-primary" id="start" >Start</button>
                 </div>
             </form>
+            <div class="showPanel">
+
+            </div>
         </div>
     </div>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+    // In renderer process (web page).
+    const {
+        ipcRenderer
+    } = require('electron');
+
+    console.log(ipcRenderer.sendSync('synchronous-message', 'Start working!')) ;
+
+    $('#start').click(function(){
+      alert("AJAX!");
+      var url = $('urlToGet').value;
+      if (url == '' ) {
+        $.get("http://localhost:3000/zhang", function(data, textStatus){
+          $('#showPanel').html(data);
+        });
+      }
+    })
+
+    </script>
+
 </body>
-<script type="text/javascript">
-// In renderer process (web page).
-const {
-    ipcRenderer
-} = require('electron')
-console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
-
-document.getElementById('fetch').addEventListener("click", function() {
-    ipcRenderer.sendSync('fetch', 'test');
-})
-
-ipcRenderer.on('reply', (event, arg) => {
-
-})
-</script>
-
 </html>
