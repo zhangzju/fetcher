@@ -68,16 +68,6 @@
 
     console.log(ipcRenderer.sendSync('synchronous-message', 'Start working!')) ;
 
-    $('#start').click(function(){
-      alert("AJAX!");
-      var url = $('urlToGet').value;
-      if (url == '' ) {
-        $.get("http://localhost:3000/zhang", function(data, textStatus){
-          $('#showPanel').html(data);
-        });
-      }
-    })
-
     </script>
 
 </body>
